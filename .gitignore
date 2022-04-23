@@ -1,2 +1,6 @@
-# ignore data
+# ignore data file
 data/
+
+# ignore code testing file
+
+test.ipynb
