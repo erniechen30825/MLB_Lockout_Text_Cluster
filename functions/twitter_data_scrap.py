@@ -11,7 +11,7 @@ def scrape_to_csv(keyword, since, until, path, output):
     for i, tweet in enumerate(sntwitter.TwitterSearchScraper(scrape_content).get_items()):
         data_list.append([tweet.date, tweet.id, tweet.content, tweet.user.username, tweet.replyCount,
                           tweet.retweetCount, tweet.likeCount, tweet.quoteCount, tweet.conversationId,
-                          tweet.source, tweet.retweetedTweet, tweet.quotedTweet, tweet.mentionedUsers])
+                          tweet.source, tweet.retweetedTweet, tweet.quotedTweet, tweet.mentionedUsers, tweet.lang])
     print(
         f"----------finished scrapping, the data had {len(data_list)} items----------")
     to_csv(data_list, path, output)
@@ -21,7 +21,7 @@ def to_csv(data_list, path, output):
     print(f"----------converging to  csv----------")
     df = pd.DataFrame(data_list, columns=['Datetime', 'Tweet Id', 'Text', 'Username', 'Reply Count',
                                           'Retweet Count', 'Like Count', 'tweetquote Count', 'conversation ID',
-                                          'source', 'retweeted Tweet', 'quotedTweet', 'mentioned Users'])
+                                          'source', 'retweeted Tweet', 'quotedTweet', 'mentioned Users', 'language'])
     output_path = f"{path}\\{output}"
     df.to_csv(output_path, sep=',',
               index=False, encoding="utf_8_sig")
@@ -33,14 +33,13 @@ def to_csv(data_list, path, output):
 # For testing
 keyword = "MLB lockout"
 path = os.path.abspath("./data")
-# print(path)
 since_date = "2021-12-02"
 until_date = "2021-12-03"
 output_file = "twitter_MLB_test.csv"
 scrape_to_csv(keyword, since_date, until_date, path, output_file)
 """
 
-# scrape data within the time range of December 1,2021 and March 10,2022 using the keyword “MLB”
+# scrape data within the time range of December 1, 2021 and March 10, 2022 using the keyword “MLB”
 keyword = "MLB lockout"
 path = "./data"
 since_dates = ["2021-12-01", "2022-01-01", "2022-02-01", "2022-03-01"]

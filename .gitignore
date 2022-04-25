@@ -4,3 +4,6 @@ data/
 # ignore code testing file
 
 test.ipynb
+
+# ignore cache files
+functions/__pycache__
