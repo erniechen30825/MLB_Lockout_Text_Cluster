@@ -1,4 +1,7 @@
 import re
+import nltk
+from nltk.corpus import stopwords
+# nltk.download('stopwords')
 
 
 def remove_urls(vTEXT):
@@ -43,3 +46,9 @@ def retrieve_mentions(org_string):
     matches = pattern.finditer(org_string)
     mentions = [match.group(0) for match in matches]
     return mentions
+
+
+def remove_stopwords(text):
+    stop = stopwords.words('english')
+    removed = " ".join(x for x in text.split() if x not in stop)
+    return removed
