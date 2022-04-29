@@ -13,27 +13,6 @@ def remove_urls(vTEXT):
     return(vTEXT)
 
 
-# def remove_punctuations_urls(vTEXT):
-#     """
-#     takes a string and remove urls and punctuations,
-#     calls the remove_urls() function for url removal
-#     """
-#     vTEXT = re.sub(r'\n', ' ', re.sub(
-#         r"[^\w\s\']", '', remove_urls(vTEXT)))
-#     return(vTEXT)
-
-def remove_punctuations_urls(vTEXT):
-    """
-    takes a string and remove urls and punctuations,
-    calls the remove_urls() function for url removal
-    """
-    tmp = re.sub(r'&amp', "", remove_urls(vTEXT))
-    tmp = re.sub(r'\n', "", tmp)
-    vTEXT = re.sub(r'[^\w\s\'\@\#]+', ' ',
-                   tmp, flags=re.MULTILINE)
-    return(vTEXT)
-
-
 def retrieve_hashtag(org_string):
     pattern = re.compile(r'#\w{1,}')
     matches = pattern.finditer(org_string)
@@ -47,6 +26,21 @@ def retrieve_mentions(org_string):
     mentions = [match.group(0) for match in matches]
     return mentions
 
+
+def remove_punctuations(org_string):
+    org_string = re.sub(r'&amp', "", org_string)
+    pattern = re.compile(r'\b\w+\b')
+    filtered = " ".join(m.group(0) for string in org_string.split()
+                        for m in [pattern.search(string)] if m)
+    return filtered
+
+
+# def remove_punctuations(vTEXT):
+#     tmp = re.sub(r'&amp', "", vTEXT)
+#     tmp = re.sub(r'\n', "", tmp)
+#     vTEXT = re.sub(r'[^\w\s]+', ' ',
+#                    tmp, flags=re.MULTILINE)
+#     return(vTEXT)
 
 def remove_stopwords(text):
     stop = stopwords.words('english')
