@@ -46,3 +46,12 @@ def remove_stopwords(text):
     stop = stopwords.words('english')
     removed = " ".join(x for x in text.split() if x not in stop)
     return removed
+
+
+lemmatizer = nltk.WordNetLemmatizer()
+
+
+def lemmatize(text):
+    text = " ".join(lemmatizer.lemmatize(word, pos="v")
+                    for word in text.split())
+    return text
