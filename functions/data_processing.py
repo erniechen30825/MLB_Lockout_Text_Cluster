@@ -1,6 +1,7 @@
 import re
 import nltk
 from nltk.corpus import stopwords
+from collections import defaultdict
 # nltk.download('stopwords')
 
 ## ---------------------------------------------------------- used in 01_data_cleaning---------------------------------------------------##
@@ -59,3 +60,31 @@ def lemmatize(text):
     return text
 
 ## ---------------------------------------------------------- used in 02_Exploratory_Data_Analysis---------------------------------------------------##
+
+
+def count_words(sentences, remove_word=[]):
+    d = defaultdict(int)
+
+    for text in sentences.split():
+        # iterate over sentences
+        if text not in remove_word:
+            if text in d:
+                d[text] = d[text]+1
+            else:
+                d[text] = 1
+    return d
+
+
+def count_words_in_df(df, col, remove_word=[]):
+    d = defaultdict(int)
+    keys = d.keys()
+    values = d.values()
+    for sentence in df.loc[:, col]:
+        d_tmp = count_words(sentence, remove_word)
+        for key, val in d_tmp.items():
+            if key not in keys:
+                d[key] = val
+            else:
+                d[key] += val
+
+    return d
