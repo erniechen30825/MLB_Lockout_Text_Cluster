@@ -3,6 +3,8 @@ import nltk
 from nltk.corpus import stopwords
 # nltk.download('stopwords')
 
+## ---------------------------------------------------------- used in 01_data_cleaning---------------------------------------------------##
+
 
 def remove_urls(vTEXT):
     """
@@ -55,3 +57,5 @@ def lemmatize(text):
     text = " ".join(lemmatizer.lemmatize(word, pos="v")
                     for word in text.split())
     return text
+
+## ---------------------------------------------------------- used in 02_Exploratory_Data_Analysis---------------------------------------------------##
